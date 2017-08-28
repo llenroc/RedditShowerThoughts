@@ -4,14 +4,11 @@ namespace RedditShowerThoughts
 {
 	public partial class App : Application
 	{
-		public static MainViewModel MainViewModel { get; private set; }
-
 		public App()
 		{
 			InitializeComponent();
-			MainViewModel = new MainViewModel();
 
-			MainPage = new RedditShowerThoughtsPage();
+			MainPage = new RedditShowerThoughtsPage(SimpleRedditService.Group.Top);
 		}
 
 		protected override void OnStart()

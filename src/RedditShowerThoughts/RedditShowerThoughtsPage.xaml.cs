@@ -1,6 +1,7 @@
 ﻿using Xamarin.Forms;
 using System.Diagnostics;
 using System.Collections;
+using static RedditShowerThoughts.SimpleRedditService;
 
 namespace RedditShowerThoughts
 {
@@ -8,10 +9,10 @@ namespace RedditShowerThoughts
 	{
 		MainViewModel viewModel;
 		
-		public RedditShowerThoughtsPage()
+		public RedditShowerThoughtsPage(Group group)
 		{
 			InitializeComponent();
-			this.viewModel = App.MainViewModel;
+			this.viewModel = new MainViewModel(group);
 			this.BindingContext = viewModel;
 		}
 

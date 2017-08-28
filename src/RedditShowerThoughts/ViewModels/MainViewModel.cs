@@ -9,12 +9,15 @@ using Xamarin.Forms;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using static RedditShowerThoughts.SimpleRedditService;
 
 namespace RedditShowerThoughts
 {
 	public class MainViewModel : BaseViewModel
 	{
-		public IList<RedditItemViewModel> Thoughts { get; private set; }
+        public Group Group { get; private set; }
+        
+        public IList<RedditItemViewModel> Thoughts { get; private set; }
 
 		private bool _isRefreshing = false;
 		public bool IsRefreshing
@@ -59,22 +62,29 @@ namespace RedditShowerThoughts
 		public bool HasMoreItemsToLoad { get; set; } = true;
 
 		public int ItemsBeforeEndToLoad { get; set; } = 3;
+        public string nextPageUrl { get; private set; }
 
-		private async Task LoadItems()
+        private async Task LoadItems()
 		{
-			var newItems = await SimpleRedditService.GetItems(IsRefreshing);
+			var newItems = await SimpleRedditService.GetItems(Group, IsRefreshing, nextPageUrl);
+
+            // get last entry
+            nextPageUrl = newItems.Item2;
 
 			if (IsRefreshing)
 				Thoughts.Clear();
 
-			foreach (var item in newItems)
+			foreach (var item in newItems.Item1)
 			{
 				Thoughts.Add(new RedditItemViewModel(item));
 			}
+
+
 		}
 
-		public MainViewModel()
+		public MainViewModel(Group group)
 		{
+            this.Group = group;
 			Thoughts = new ObservableCollection<RedditItemViewModel>();
 		}
 

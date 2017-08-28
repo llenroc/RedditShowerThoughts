@@ -8,21 +8,25 @@ namespace RedditShowerThoughts
 {
 	public static class SimpleRedditService
 	{
+        public enum Group
+        {
+            Hot,
+            New,
+            Top
+        }
+
 		static HttpClient httpClient;
 		private static string baseUrl = @"http://www.reddit.com";
-		private static string after = "";
-		private static string subredditGroup = "new";
-//		private static string subredditGroup = "top";
 		private static string subreddit = "showerthoughts";
 		static SimpleRedditService()
 		{
 			httpClient = new HttpClient();
 		}
 
-		public static async Task<List<RedditItem>> GetItems(bool reload)
+		public static async Task<Tuple<List<RedditItem>, string>> GetItems(Group subRedditGroup, bool reload, string after = "")
 		{
 			// construct url
-			string url = $"{baseUrl}/r/{subreddit}/{subredditGroup}.json?raw_json=1";
+			string url = $"{baseUrl}/r/{subreddit}/{subRedditGroup.ToString().ToLowerInvariant()}.json?raw_json=1";
 
 			if (reload == false && !string.IsNullOrEmpty(after))
 				url += "&after=" + after;
@@ -40,7 +44,8 @@ namespace RedditShowerThoughts
 			foreach (var item in resultValue.data.children)
 				returnData.Add(item.data);
 
-			return returnData;
+            var tupleResult = Tuple.Create(returnData, after);
+			return tupleResult;
 		}
 	}
 }
