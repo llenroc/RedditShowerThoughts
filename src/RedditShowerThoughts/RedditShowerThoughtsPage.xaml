@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:local="clr-namespace:RedditShowerThoughts"
+	x:Class="RedditShowerThoughts.RedditShowerThoughtsPage">
+	<Grid RowSpacing="0">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="AUTO" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<ListView x:Name="mainList"
+			CachingStrategy="RetainElement"
+			RefreshCommand="{Binding RefreshCommand}"
+			IsRefreshing="{Binding IsRefreshing}"
+			SeparatorVisibility="None"
+			IsPullToRefreshEnabled="true"
+			BackgroundColor="{StaticResource PageBackground}"
+			Grid.Row="1"
+			ItemsSource="{Binding Thoughts}"
+			HasUnevenRows="true">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<StackLayout Padding="30,10">
+							<Label Style="{StaticResource QuoteLabel}"
+								Text="{Binding ShowerThought}"
+								HorizontalTextAlignment="Center" />
+							<Label Style="{StaticResource HandleLabel}"
+								Margin="10"
+								Text="{Binding Author}"
+								HorizontalOptions="Center"
+								Grid.Row="1" />
+<!--							<Image Source="divider.png"/>-->
+							<BoxView WidthRequest="100"
+								HeightRequest=".5"
+								HorizontalOptions="Center"
+								VerticalOptions="End"
+								BackgroundColor="{StaticResource HeaderBackground}" />
+						</StackLayout>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+			<ListView.Footer>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="50">
+						</RowDefinition>
+					</Grid.RowDefinitions>
+					<ActivityIndicator IsVisible="{Binding IsBusy}"
+						IsRunning="{Binding IsBusy}" />
+				</Grid>
+			</ListView.Footer>
+		</ListView>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="AUTO" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<BoxView BackgroundColor="{StaticResource HeaderBackground}"
+				Grid.ColumnSpan="3" />
+			<Label Text="shower"
+				Style="{StaticResource HeaderLabel}"
+				HorizontalOptions="End"
+				Grid.Column="0"
+				VerticalOptions="Center"
+				LineBreakMode="NoWrap"
+				TranslationY="10" />
+			<Frame HorizontalOptions="Center"
+				VerticalOptions="Center"
+				Padding="1"
+				HasShadow="false"
+				Grid.Column="1"
+				TranslationY="15">
+				<Image Source="Showerthoughts.jpg"
+					WidthRequest="50"
+					HeightRequest="50"
+					Margin="3" />
+			</Frame>
+			<Label Text="thoughts"
+				Style="{StaticResource HeaderLabel}"
+				HorizontalOptions="Start"
+				Grid.Column="2"
+				VerticalOptions="Center"
+				LineBreakMode="NoWrap"
+				TranslationY="10" />
+		</Grid>
+	</Grid>
+</ContentPage>

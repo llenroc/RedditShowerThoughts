@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	x:Class="RedditShowerThoughts.App">
+	<Application.Resources>
+		<!-- Application resource dictionary -->
+				        <!--  Application resource dictionary  -->
+        <ResourceDictionary>
+            <Color x:Key="QuoteTextColor">#444444</Color>
+            <Color x:Key="HandleTextColor">#666666</Color>
+			<Color x:Key="HeaderBackground">#53C0CA</Color>
+			<Color x:Key="PageBackground">#FAFAFA</Color>
+			<Color x:Key="HeaderTextColor">#444444</Color>
+			
+            <!--  font families  -->
+            <OnPlatform
+                x:Key="RegularFontFamily"
+                x:TypeArguments="x:String"
+                Android="sans-serif"
+                iOS="HelveticaNeue" />
+            <OnPlatform
+                x:Key="LightFontFamily"
+                x:TypeArguments="x:String"
+                Android="sans-serif-light"
+                iOS="HelveticaNeue-Light" />
+            <OnPlatform
+                x:Key="MediumFontFamily"
+                x:TypeArguments="x:String"
+                Android="sans-serif-medium"
+                iOS="HelveticaNeue-Medium" />
+            <OnPlatform
+                x:Key="BoldFontFamily"
+                x:TypeArguments="x:String"
+                Android="sans-serif-medium"
+                iOS="HelveticaNeue-Bold" />
+
+            <!--  fonts  -->
+            <Font
+                x:Key="HeaderFont"
+                FontFamily="{StaticResource BoldFontFamily}"
+                FontSize="24" />
+            <Font
+                x:Key="QuoteFont"
+                FontFamily="{StaticResource MediumFontFamily}"
+                FontSize="18" />
+            <Font
+                x:Key="HandleFont"
+                FontFamily="{StaticResource LightFontFamily}"
+                FontSize="12" />
+
+
+            <!--  styles  -->
+			<Style x:Key="HeaderLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource HeaderTextColor}" />
+                <Setter Property="Font" Value="{StaticResource HeaderFont}" />
+            </Style>
+
+			<Style x:Key="QuoteLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource QuoteTextColor}" />
+                <Setter Property="Font" Value="{StaticResource QuoteFont}" />
+            </Style>
+
+			<Style x:Key="HandleLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource HandleTextColor}" />
+                <Setter Property="Font" Value="{StaticResource HandleFont}" />
+            </Style>
+			
+        </ResourceDictionary>
+
+	</Application.Resources>
+</Application>
